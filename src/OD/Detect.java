@@ -25,10 +25,16 @@ public class Detect {
 
 	// 这里需要一个循环，来应对AB->CDEF这种右边有多条od的情况
 	public String detectSingleOD(OrderDependency od) {
-		DataStruct preData=preList.isEmpty()?null:ReadandCheck.objectList.get(preList.get(0));
-		DataStruct nextData=nextList.isEmpty()?null:ReadandCheck.objectList.get(nextList.get(0));
-		DataStruct curData=curList.isEmpty()?null:ReadandCheck.objectList.get(curList.get(0));
+//		DataStruct preData=preList.isEmpty()?null:ReadandCheck.objectList.get(preList.get(0));
+//		DataStruct nextData=nextList.isEmpty()?null:ReadandCheck.objectList.get(nextList.get(0));
+//		DataStruct curData=curList.isEmpty()?null:ReadandCheck.objectList.get(curList.get(0));
 		DataStruct increData=ReadandCheck.objectList.get(increList.get(0));
+		DataStruct preData=preList==null?null:ReadandCheck.objectList.get(preList.get(0));
+		DataStruct nextData=nextList==null?null:ReadandCheck.objectList.get(nextList.get(0));
+		DataStruct curData=curList==null?null:ReadandCheck.objectList.get(curList.get(0));
+		
+		
+		
 		
 		System.out.print("\nchecking od: ");
 		od.printOD();

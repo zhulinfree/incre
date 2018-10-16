@@ -386,7 +386,7 @@ public class BplusNode <K extends Comparable<K>, V extends ArrayList> {
 		}
 
     }
-public void addList2Right(int mid,K key,ArrayList<Integer> listMore,BplusNode<K,V> node) {
+    public void addList2Right(int mid,K key,ArrayList<Integer> listMore,BplusNode<K,V> node) {
     	
 
 		while(mid<node.entries.size()) {
@@ -556,11 +556,7 @@ public void addList2Right(int mid,K key,ArrayList<Integer> listMore,BplusNode<K,
       }
 		
     }
-	    			
-	    		
-        
-        
-        
+	     
 
   //查找前缀属性为key对应节点的tupleId组
     public Entry<K,V> getPrefixAtrributeTupleID(K key) { 
@@ -732,9 +728,6 @@ public void addList2Right(int mid,K key,ArrayList<Integer> listMore,BplusNode<K,
 	    			if (comp == 0) {
 	    				//找到k的节点后,返回k的前一个节点
 	    				//如果是最前面的叶子结点,则去前一棵叶子组上找最后一个节点
-	    				
-	    				
-	    				
 	    				while(mid<entries.size()&&(entries.get(mid).getKey().compareTo(key)==0)) {
 	    					mid++;
 	    				}
@@ -808,6 +801,7 @@ public void addList2Right(int mid,K key,ArrayList<Integer> listMore,BplusNode<K,
         		return children.get(low).getNext(key,tid,tree);
         } 
     }
+    
     public Entry<K,V> get(K key) { 
          
         //如果是叶子节点 
@@ -1404,10 +1398,10 @@ public void addList2Right(int mid,K key,ArrayList<Integer> listMore,BplusNode<K,
     				
     				return entries.remove(mid).getValue();
     			}else if(comp < 0){
-				low = mid + 1;
-			}else {
-				high = mid - 1;
-			}
+    				low = mid + 1;
+				}else {
+					high = mid - 1;
+				}
     		}
         return null;
     }   
