@@ -9,7 +9,8 @@ import Test.*;
 public class Detect {	
 	ArrayList<Integer> preList=new ArrayList<Integer>(),nextList=new ArrayList<Integer>(),
 			curList=new ArrayList<Integer>(),increList=new ArrayList<Integer>();
-	//ArrayList<DataStruct> objectList = new ArrayList<DataStruct>();
+	ArrayList<DataStruct> objectList = new ArrayList<DataStruct>();
+	private boolean debug=false;
 	public Detect() {
 
 	}
@@ -20,25 +21,28 @@ public class Detect {
 		nextList = next;
 		curList = cur;
 		increList = incre;
-		//objectList = objList;
+		debug=TestforData.debug;
+		objectList=TestforData.objectList;
+//		debug=ReadandCheck.debug;
+//		objectList=ReadandCheck.objectList;
 	}
 
 	// 这里需要一个循环，来应对AB->CDEF这种右边有多条od的情况
 	public String detectSingleOD(OrderDependency od) {
-//		DataStruct preData=preList.isEmpty()?null:ReadandCheck.objectList.get(preList.get(0));
-//		DataStruct nextData=nextList.isEmpty()?null:ReadandCheck.objectList.get(nextList.get(0));
-//		DataStruct curData=curList.isEmpty()?null:ReadandCheck.objectList.get(curList.get(0));
-		DataStruct increData=ReadandCheck.objectList.get(increList.get(0));
-		DataStruct preData=preList==null?null:ReadandCheck.objectList.get(preList.get(0));
-		DataStruct nextData=nextList==null?null:ReadandCheck.objectList.get(nextList.get(0));
-		DataStruct curData=curList==null?null:ReadandCheck.objectList.get(curList.get(0));
+//		DataStruct preData=preList.isEmpty()?null:objectList.get(preList.get(0));
+//		DataStruct nextData=nextList.isEmpty()?null:objectList.get(nextList.get(0));
+//		DataStruct curData=curList.isEmpty()?null:objectList.get(curList.get(0));
+		DataStruct increData=objectList.get(increList.get(0));
+		DataStruct preData=preList==null?null:objectList.get(preList.get(0));
+		DataStruct nextData=nextList==null?null:objectList.get(nextList.get(0));
+		DataStruct curData=curList==null?null:objectList.get(curList.get(0));
 		
 		
 		
 		
 		System.out.print("\nchecking od: ");
 		od.printOD();
-		if (ReadandCheck.debug) {
+		if (debug) {
 			System.out.print("ATTR_NAME: ");
 			DataStruct.printAttrName();
 			System.out.print("increData: ");
@@ -59,7 +63,7 @@ public class Detect {
 			String iv = increData.getByName(it);
 			String nv = nextData == null ? "" : nextData.getByName(it);
 
-			if(ReadandCheck.debug) {
+			if(debug) {
 				System.out.println("检查右边属性: "+it);
 				System.out.println("pre: " + pv + "  cur: " + cv + "  next: " + nv + "  incre: " + iv);
 			}

@@ -2,22 +2,27 @@ package OD;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import Data.*;
+import Test.*;
 
-import Data.Cmp;
-import Data.DataStruct;
-import Test.ReadandCheck;
 
 public class Extend {
 	ArrayList<Integer> preList = new ArrayList<Integer>(), nextList = new ArrayList<Integer>(),
 			curList = new ArrayList<Integer>(), increList = new ArrayList<Integer>();
-	//ArrayList<DataStruct> objectList = new ArrayList<DataStruct>();
-
+	ArrayList<DataStruct> objectList;
+	private boolean debug=false;
 	public Extend(ArrayList<Integer> pre, ArrayList<Integer> next,
 			ArrayList<Integer> cur, ArrayList<Integer> incre) {
 		preList = pre;
 		nextList = next;
 		curList = cur;
 		increList = incre;
+		
+
+		debug=TestforData.debug;
+		objectList=TestforData.objectList;
+//		debug=ReadandCheck.debug;
+//		objectList=ReadandCheck.objectList;
 	}
 
 	// 最终返回的是所有的符合条件的OD的一个list
@@ -50,7 +55,7 @@ public class Extend {
 
 	
 	public ArrayList<OrderDependency> reduceRHSforSwap(OrderDependency od){
-		if(ReadandCheck.debug)  System.out.println("尝试减少属性..");
+		if(debug)  System.out.println("尝试减少属性..");
 		ArrayList<OrderDependency> res=new ArrayList<OrderDependency>();
 		Detect d=new Detect(preList,nextList,curList,increList);
 		String violationType="swap";
@@ -58,11 +63,11 @@ public class Extend {
 			//od.getRHS().remove(od.getRHS().size()-1);
 			od.deleteRHSTail();
 			violationType=d.detectSingleOD(od);
-			if(ReadandCheck.debug) System.out.println(violationType);
+			if(debug) System.out.println(violationType);
 		}
 		
 		if(violationType.equals("valid")) {
-			if(ReadandCheck.debug) {
+			if(debug) {
 				System.out.println("减少属性成功");
 				od.printOD();
 			}
@@ -78,15 +83,15 @@ public class Extend {
 		ArrayList<OrderDependency> res = new ArrayList<OrderDependency>();
 
 		// 尝试右边减属性，应该剪到cur和incre的相同的前半部分
-		if(ReadandCheck.debug)  System.out.println("尝试减少属性..");
+		if(debug)  System.out.println("尝试减少属性..");
 		if(od.getRHS().size()<2) return res;
 		
 		int prefixNum = 0;// 记录cur和增量数据在getRHS()中匹配的数据数量
 		OrderDependency odReduce = new OrderDependency();
 		odReduce.copy(od);
 		for (String it : odReduce.getRHS()) {
-			String cv = ReadandCheck.objectList.get(curList.get(0)).getByName(it);
-			String iv = ReadandCheck.objectList.get(increList.get(0)).getByName(it);
+			String cv = objectList.get(curList.get(0)).getByName(it);
+			String iv = objectList.get(increList.get(0)).getByName(it);
 			if (Cmp.equals(cv, iv))
 				prefixNum++;
 		}
@@ -104,7 +109,7 @@ public class Extend {
 	// 左边加属性
 	// TODO::左边加属性的深搜
 	public ArrayList<OrderDependency> increaseLHS(OrderDependency od, ArrayList<Integer> curList) {
-		if(ReadandCheck.debug) {
+		if(debug) {
 			System.out.print("increase od:");
 			od.printOD();
 		}
@@ -130,10 +135,10 @@ public class Extend {
 			// 如果这个属性没有被使用
 			if (m.get(adder) == null) {
 				m.put(adder, 1);
-				if(ReadandCheck.debug) System.out.println("尝试添加属性:  " + adder);
-				int bigger = biggerThan(ReadandCheck.objectList.get(curList.get(0)), ReadandCheck.objectList.get(increList.get(0)), od);
+				if(debug) System.out.println("尝试添加属性:  " + adder);
+				int bigger = biggerThan(objectList.get(curList.get(0)), objectList.get(increList.get(0)), od);
 				
-				if (ReadandCheck.debug) {
+				if (debug) {
 					for (int i : curList) {
 						System.out.print(i + " ");
 					}
@@ -144,24 +149,24 @@ public class Extend {
 				boolean flag = true;
 				ArrayList<Integer> splitList = new ArrayList<Integer>();
 				for (int li : curList) {
-					int check = bigger * Cmp.compare(ReadandCheck.objectList.get(li).getByName(adder),
-							ReadandCheck.objectList.get(increList.get(0)).getByName(adder));
+					int check = bigger * Cmp.compare(objectList.get(li).getByName(adder),
+							objectList.get(increList.get(0)).getByName(adder));
 					if (check < 0) {
 						flag = false;
 						break;
 					} else if (check == 0) {
-						if(ReadandCheck.debug) System.out.println("split id is: "+li);
+						if(debug) System.out.println("split id is: "+li);
 						splitList.add(li);
 						flag = false;
 					}
 				}
 				if (flag) {
-					if (ReadandCheck.debug) System.out.println("添加成功: "+adder);
+					if (debug) System.out.println("添加成功: "+adder);
 					odIncre.getLHS().add(adder);
 					res.add(new OrderDependency(odIncre));
 					odIncre.copy(od);
 				} else if (!splitList.isEmpty()&&splitList.size()<curList.size()) {
-					if (ReadandCheck.debug) System.out.println("递归查找...");
+					if (debug) System.out.println("递归查找...");
 					odIncre.getLHS().add(adder);
 					ArrayList<OrderDependency> newOD = new ArrayList<OrderDependency>();
 					newOD = increaseLHS(odIncre, splitList);

@@ -15,7 +15,6 @@ public class CSVtoDataObject {
 		CSVFileUtil cfu = new CSVFileUtil(fileName);
 		while((tempString=cfu.readLine())!=null) {
 			tempList = cfu.fromCSVLinetoArray(tempString);
-			tempList.add("id");
 			tempListTwoDem.add(tempList);
 			listCount++;
 		}
@@ -23,36 +22,30 @@ public class CSVtoDataObject {
 	}
 	public  ArrayList<DataStruct> datatoObject() {
 		ArrayList<DataStruct> objectList = new ArrayList<>();
-//		Iterator iter = tempListTwoDem.iterator();
-		ArrayList<String> nameContrroller = (ArrayList<String>) tempListTwoDem.get(0);
-		
+		Iterator iter = tempListTwoDem.iterator();
+		ArrayList<String> nameContrroller = (ArrayList<String>) iter.next();
 		ArrayList<String> dataList =new ArrayList<String>();
 		if(tempListTwoDem.size()<2) {
 			System.out.println("tuple is less than 1");
 			return null;
 		}
-		for (int j=1;j<tempListTwoDem.size();j++) {
-//			DataStruct.buildAttrName(nameContrroller);
-			
-//			for(int tempCount = 2;tempCount<listCount;tempCount++) {
-//			for(;iter.hasNext();) {
-				dataList = (ArrayList<String>)tempListTwoDem.get(j);
-				
-//				String[] array = (String[])dataList.toArray(new String[nameContrroller.size()]); 
-				String[] array = (String[])dataList.toArray(new String[39]); 
-				
-				DataStruct tempObject = new DataStruct();
-				tempObject.buildAttrName(nameContrroller);
-				//id最后放入所以是number-1；
-				for(int i=0;i<tempObject.attrNumber-1;i++) {
-					tempObject.add(array[i]);
-				}
-				String str = Integer.toString(j-1);
-				tempObject.add(str);	
-				objectList.add(tempObject);
-//			}
-		}
+		DataStruct.buildAttrName(tempListTwoDem.get(0));
 		
+//		for(int tempCount = 2;tempCount<listCount;tempCount++) {
+		for(;iter.hasNext();) {
+			dataList = (ArrayList<String>) iter.next();
+			
+//			String[] array = (String[])dataList.toArray(new String[nameContrroller.size()]); 
+			String[] array = (String[])dataList.toArray(new String[19]); 
+			
+			DataStruct tempObject = new DataStruct();
+			
+			for(int i=0;i<DataStruct.attrNumber;i++) {
+				tempObject.add(Integer.parseInt(array[i]));
+			}
+				
+			objectList.add(tempObject);
+		}
 		return objectList;
 	}
 	

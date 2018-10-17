@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DataStruct{
-	private ArrayList<String> attr=new ArrayList<String>();
+	private ArrayList<Integer> colData=new ArrayList<Integer>();
 	static private HashMap<Integer,String> colNumber_to_attrName=new HashMap<Integer,String>();
 	static private HashMap<String,Integer> attrName_to_colNumber=new HashMap<String,Integer>();
 	static int attrNumber=0;
@@ -15,58 +15,39 @@ public class DataStruct{
 			colNumber_to_attrName.put(i,line.get(i));
 			attrName_to_colNumber.put(line.get(i), i);
 		}
-
 	}
 		
 	public static ArrayList<String> getAllAttributeName() {
 		
 		ArrayList<String> res=new ArrayList<String>();
-		//-1是因为 id本身不是数据中的属性
-		for(int i=0;i<attrNumber-1;i++) {
+		for(int i=0;i<attrNumber;i++) {
 			res.add(colNumber_to_attrName.get(i));
 		}
 		return res;
 	}
 	
-	public void add(String adder) {
-		attr.add(adder);
+	public void add(Integer adder) {
+		colData.add(adder);
 	}
 	public void add(DataStruct nds) {
 		
 	}
-	public String getIndex(int i) {
-		return attr.get(i);
+	public Integer getIndex(int i) {
+		return colData.get(i);
 	}
 	
+	//为了便于后续比较，将返回值定为String类型
 	public String getByName(String name) {
-		return attr.get(attrName_to_colNumber.get(name));
+		return Integer.toString(colData.get(attrName_to_colNumber.get(name)));
 	}
-	public void setId(String id) {
-		attr.remove(attrNumber-1);
-		attr.add(id);
-	}
+	
 	public void printSingleData() {
 		for(int i=0;i<attrNumber;i++) {
-			System.out.printf("%-7s",attr.get(i)+" ");
+			System.out.printf("%-7s",colData.get(i)+" ");
 		}
 		System.out.println();
 	}
 	
-	public void printSingleData(String name) {
-		
-		System.out.print(name+": "+attr.get(attrName_to_colNumber.get(name))+"|");
-	}
-	
-	public static  int comparator(DataStruct d1,DataStruct d2,ArrayList<String> attrNameOfKey ) {
-		for(int i =0;i<attrNameOfKey.size();i++) {
-			String attrName = attrNameOfKey.get(i);
-			int result = Cmp.compare(d1.getByName(attrName),d2.getByName(attrName));
-			if(result!=0) {
-				return result;
-			}
-		}
-		return 0;
-	}
 	static public void printAttrName() {
 		for(int i=0;i<attrNumber;i++) {
 			System.out.printf("%-7s",colNumber_to_attrName.get(i)+" ");
