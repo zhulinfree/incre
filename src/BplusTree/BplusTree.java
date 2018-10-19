@@ -44,10 +44,12 @@ public class BplusTree <K extends Comparable<K>, V extends ArrayList>{
 	
 	
 	public  K  getPre(K key,int tid){
-		return root.getPre(key,tid,this).getKey();
+		Entry<K,V> e=root.getPre(key,tid,this);
+		return e==null?null:e.getKey();
 	}
 	public  K getNext(K key ,int tid){
-		return root.getNext(key,tid,this).getKey();
+		Entry<K,V> e=root.getNext(key,tid,this);
+		return e==null?null:e.getKey();
 	}
 	public  Entry<K,V> getKey(K key){
 		return root.get(key);

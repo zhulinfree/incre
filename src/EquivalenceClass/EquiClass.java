@@ -8,21 +8,21 @@ import java.util.HashMap;
 import BplusTree.BplusTree;
 import Data.DataStruct;
 import OD.OrderDependency;
-import Test.TestforData;
+
 
 
 public class EquiClass<K extends Comparable<K>>{
-	private int ttid=0;
+	
 	
 	//保存当前等价类所需要的属性名字
 	private ArrayList<String> attrName=new ArrayList<>();
 	public BplusTree<K,ArrayList<Integer>> keyTree;
 	//private ArrayList<K> keySortedList=new ArrayList<>();
 	public HashMap<K,ArrayList<Integer>> ec=new HashMap<K,ArrayList<Integer>>();
-	public EquiClass(OrderDependency od,int treeOrder){
-		this.setAttrName(od);
+	public EquiClass(ArrayList<String> indList,int treeOrder){
+		this.setAttrName(indList);
 		keyTree=new BplusTree<K,ArrayList<Integer>>(treeOrder);
-		ttid=TestforData.tid;
+		
 	}
 	
 	//K key
@@ -33,7 +33,6 @@ public class EquiClass<K extends Comparable<K>>{
 		
 		if(findEC==null) {
 			//TODO::找不到等价类，更新树节点信息，
-			
 //			keySortedList.add(key);
 //			Collections.sort(keySortedList);
 			keyTree.insertOrUpdate(key, tid);
@@ -47,7 +46,42 @@ public class EquiClass<K extends Comparable<K>>{
 		
 	}
 	
+	
+	public ArrayList<Integer> getCur(K key){
+		return ec.get(key);
+	}
+	
+	
+	public ArrayList<Integer> getPre(K key,int tid){
+		K pre=getPreKey(key,tid);
+		return pre==null?null:ec.get(pre);
+	}
+	
+	public ArrayList<Integer> getNext(K key,int tid){
+		K next=getNextKey(key,tid);
+		return next==null?null:ec.get(next);
+	}
+	
+	
+	
+	public void setAttrName(ArrayList<String> lhs) {
+		for(String s:lhs) {
+			attrName.add(s);
+		}
+	}
+	
+	public ArrayList<String> getAttrName() {
+		return attrName;
+	}
+	
 
+	public K getPreKey(K key,int tid) {
+		return keyTree.getPre(key,tid);
+	}
+	public K getNextKey(K key,int tid) {
+		return keyTree.getNext(key,tid);
+	}
+	
 	/*
 	//返回的是key中后一个数据的key值
 	public K getPreKey(K key) {
@@ -89,42 +123,5 @@ public class EquiClass<K extends Comparable<K>>{
 		return null;
 	}*/
 	
-	
-	public K getPreKey(K key) {
-		return keyTree.getPre(key,ttid);
-	}
-	public K getNextKey(K key) {
-		return keyTree.getNext(key,ttid);
-	}
-	
-	public ArrayList<Integer> getKey(K key){
-		return ec.get(key);
-	}
-	
-	
-	public ArrayList<Integer> getPre(K key){
-		K pre=getPreKey(key);
-		return ec.get(pre);
-		
-	}
-	
-	public ArrayList<Integer> getNext(K key){
-		K next=getNextKey(key);
-		return ec.get(next);
-	}
-	
-	private void setAttrName(OrderDependency od) {
-		for(String lhs:od.getLHS()) {
-			attrName.add(lhs);
-		}
-	}
-	
-	
-	
-	public void setAttrName(ArrayList<String> lhs) {
-		for(String s:lhs) {
-			attrName.add(s);
-		}
-	}
 	
 }
