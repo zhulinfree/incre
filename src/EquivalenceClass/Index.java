@@ -9,17 +9,15 @@ import OD.OrderDependency;
 import Test.*;
 
 public class Index {
-	
+
+	//	public ArrayList<DataStruct> objList=new ArrayList<>();
 	public ArrayList<EquiClass<InstanceKey>> ECIndexList=new ArrayList<>();
-//	public ArrayList<DataStruct> objList=new ArrayList<>();
 	public HashMap<ArrayList<String>,Integer> indexMap=new HashMap<>(); 
 	public HashMap<Integer,ArrayList<String>> recforIndex=new HashMap<>();
 	public int tn=0;//tn表示当前建立索引树的数目
 	public int order;
 	public boolean debug;
 	public Index() {
-//		debug=TestforData.debug;
-//		order=TestforData.order;
 		debug=Debug.debug;
 		order=Debug.order;
 	}
@@ -49,37 +47,13 @@ public class Index {
 		//return ECIndexList;
 	}
 	
-	//在ABC上查，有正好的就用正好的，没正好的就用范围大的（AB）,再没有就用ABCD
-	public int getIndexId(ArrayList<String> todo) {
-		
-		int x=indexMap.getOrDefault(todo,-1);
-		if(x!=-1) return x;
-		
-		//没有正好的就用范围大的，如AB索引
-		ArrayList<String> tmp=new ArrayList<String>();
-		tmp.addAll(todo);
-		tmp.remove(tmp.size()-1);
-		while(tmp.isEmpty()==false) {
-			int r=indexMap.getOrDefault(tmp,-1);
-			x=r==-1?x:r;
-			tmp.remove(tmp.size()-1);
-		}
-		if(x!=-1) return x;
-		
-		//没有范围大的就用范围小，如ABCD
-		return 0;
-		
-		
-		
-		
-	}
 	
 	
 	
 	
-	public ArrayList<Integer> getCur(InstanceKey key){
+	public ArrayList<Integer> getCur(InstanceKey key,int indexId){
 		
-		int indexId=getIndexId(key.getAttrName());
+		//int indexId=getIndexId(key.getAttrName());
 		//TODO::if(indexId==-1) how to do重新建立索引
 		ArrayList<String> indexAttrName=new ArrayList<>();
 		indexAttrName=recforIndex.get(indexId);
@@ -87,7 +61,7 @@ public class Index {
 
 		//查询的属性和索引属性相等
 		if(comp==0) {
-			return getCur(key,indexId);
+			return getCur_exactly(key,indexId);
 		}
 		
 		if(comp>0) {
@@ -101,15 +75,15 @@ public class Index {
 		
 	}
 	
-	public ArrayList<Integer> getPre(InstanceKey key){
+	public ArrayList<Integer> getPre(InstanceKey key,int indexId){
 		
-		int indexId=getIndexId(key.getAttrName());
+		//int indexId=getIndexId(key.getAttrName());
 		ArrayList<String> indexAttrName=recforIndex.get(indexId);
 		int comp=key.getAttrName().size()-indexAttrName.size();
 
 		//查询的属性和索引属性相等
 		if(comp==0) {
-			return getPre(key,indexId);
+			return getPre_exactly(key,indexId);
 		}
 		
 		if(comp>0) {
@@ -123,15 +97,15 @@ public class Index {
 		
 	}
 
-	public ArrayList<Integer> getNext(InstanceKey key){
+	public ArrayList<Integer> getNext(InstanceKey key,int indexId){
 		
-		int indexId=getIndexId(key.getAttrName());
+		//int indexId=getIndexId(key.getAttrName());
 		ArrayList<String> indexAttrName=recforIndex.get(indexId);
 		int comp=key.getAttrName().size()-indexAttrName.size();
 	
 		//查询的属性和索引属性相等
 		if(comp==0) {
-			return getNext(key,indexId);
+			return getNext_exactly(key,indexId);
 		}
 		
 		if(comp>0) {
@@ -146,15 +120,15 @@ public class Index {
 	}
 
 	//getCur 
-	private ArrayList<Integer> getCur(InstanceKey key,int indexId){
+	private ArrayList<Integer> getCur_exactly(InstanceKey key,int indexId){
 		return ECIndexList.get(indexId).getCur(key);
 	}
 	
-	private ArrayList<Integer> getPre(InstanceKey key,int indexId){
+	private ArrayList<Integer> getPre_exactly(InstanceKey key,int indexId){
 		return ECIndexList.get(indexId).getPre(key);
 	}
 	
-	private ArrayList<Integer> getNext(InstanceKey key,int indexId){
+	private ArrayList<Integer> getNext_exactly(InstanceKey key,int indexId){
 		return ECIndexList.get(indexId).getNext(key);
 	}
 	
