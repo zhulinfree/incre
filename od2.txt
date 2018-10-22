@@ -1,4 +1,1 @@
-A->B
-C->D
-E,A,F->G
-C,E->H
+A,E,F->B

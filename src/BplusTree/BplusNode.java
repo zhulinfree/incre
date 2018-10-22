@@ -875,7 +875,7 @@ public void addList2Right(int mid,K key,ArrayList<Integer> listMore,BplusNode<K,
     	InstanceKey instanckey = (InstanceKey)key;
     	int result = 0;
     	for(int i =0;i<attrNameOfKey.size();i++) {
-    		String a = Integer.toString(instanckey.multiAtr.get(i));
+    		String a = Integer.toString(instanckey.getKeyData().get(i));
     		String b = data.getByName(attrNameOfKey.get(i));
     		result = Cmp.compare(a,b);
     		if(result!=0) {

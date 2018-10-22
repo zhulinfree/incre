@@ -17,10 +17,10 @@ public class Extend {
 		nextList = next;
 		curList = cur;
 		increList = incre;
-//		debug=TestforData.debug;
-//		objectList=TestforData.objectList;
-		debug=ReadandCheck.debug;
-		objectList=ReadandCheck.objectList;
+		debug=TestforData.debug;
+		objectList=TestforData.objectList;
+//		debug=ReadandCheck.debug;
+//		objectList=ReadandCheck.objectList;
 	}
 
 	// 最终返回的是所有的符合条件的OD的一个list

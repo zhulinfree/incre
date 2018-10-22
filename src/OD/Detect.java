@@ -21,10 +21,10 @@ public class Detect {
 		nextList = next;
 		curList = cur;
 		increList = incre;
-//		debug=TestforData.debug;
-//		objectList=TestforData.objectList;
-		debug=ReadandCheck.debug;
-		objectList=ReadandCheck.objectList;
+		debug=TestforData.debug;
+		objectList=TestforData.objectList;
+//		debug=ReadandCheck.debug;
+//		objectList=ReadandCheck.objectList;
 			
 	}
 

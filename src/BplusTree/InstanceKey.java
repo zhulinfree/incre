@@ -7,18 +7,33 @@ import Data.Cmp;
 import Data.DataStruct;
 
 public class InstanceKey implements Comparable<InstanceKey>{
-	public ArrayList<Integer> multiAtr = new ArrayList<>();
+	private ArrayList<Integer> multiAtr = new ArrayList<>();
+	private ArrayList<String> attrName=new ArrayList<>();
+	private DataStruct data=new DataStruct();
 	
-
 	public InstanceKey(List<String> LHS,DataStruct d) {
 		for(String temp:LHS) {
-			
 			multiAtr.add(Integer.parseInt(d.getByName(temp)));
+			attrName.add(temp);
 		}
+		data.copy(d);
 	}
+	
+//	public InstanceKey(List<String> attrName,List<Integer> data) {
+//		for(int i=0;i<attrName.size();i++) {
+//			multiAtr.add(data.get(i));
+//			this.attrName.add(attrName.get(i));
+//		}
+//	}
 	
 	public ArrayList<Integer> getKeyData(){
 		return multiAtr;
+	}
+	public ArrayList<String> getAttrName(){
+		return attrName;
+	}
+	public DataStruct getFullData() {
+		return data;
 	}
 
 	public InstanceKey() {

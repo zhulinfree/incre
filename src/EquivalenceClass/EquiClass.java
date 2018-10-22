@@ -1,14 +1,8 @@
 package EquivalenceClass;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
-
 import BplusTree.BplusTree;
-import Data.DataStruct;
-import OD.OrderDependency;
-
 
 
 public class EquiClass<K extends Comparable<K>>{
@@ -52,13 +46,13 @@ public class EquiClass<K extends Comparable<K>>{
 	}
 	
 	
-	public ArrayList<Integer> getPre(K key,int tid){
-		K pre=getPreKey(key,tid);
+	public ArrayList<Integer> getPre(K key){
+		K pre=getPreKey(key);
 		return pre==null?null:ec.get(pre);
 	}
 	
-	public ArrayList<Integer> getNext(K key,int tid){
-		K next=getNextKey(key,tid);
+	public ArrayList<Integer> getNext(K key){
+		K next=getNextKey(key);
 		return next==null?null:ec.get(next);
 	}
 	
@@ -75,11 +69,11 @@ public class EquiClass<K extends Comparable<K>>{
 	}
 	
 
-	public K getPreKey(K key,int tid) {
-		return keyTree.getPre(key,tid);
+	public K getPreKey(K key) {
+		return keyTree.getPre(key);
 	}
-	public K getNextKey(K key,int tid) {
-		return keyTree.getNext(key,tid);
+	public K getNextKey(K key) {
+		return keyTree.getNext(key);
 	}
 	
 	/*

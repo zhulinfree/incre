@@ -8,6 +8,9 @@ public class DataStruct{
 	static private HashMap<String,Integer> attrName_to_colNumber=new HashMap<String,Integer>();
 	static int attrNumber=0;
 	
+	public 	DataStruct(){
+		
+	}
 	//将属性名和属性所在列数统一起来
 	public static void buildAttrName(ArrayList<String> line) {
 		attrNumber=line.size();
@@ -29,8 +32,10 @@ public class DataStruct{
 	public void add(Integer adder) {
 		colData.add(adder);
 	}
-	public void add(DataStruct nds) {
-		
+	public void copy(DataStruct cd) {
+		for(int i=0;i<attrNumber;i++) {
+			this.colData.add(cd.colData.get(i));
+		}
 	}
 	public Integer getIndex(int i) {
 		return colData.get(i);
