@@ -3,6 +3,7 @@ package OD;
 import java.util.ArrayList;
 
 import Data.Cmp;
+import Data.DataInitial;
 import Data.DataStruct;
 import Test.*;
 
@@ -21,10 +22,8 @@ public class Detect {
 		nextList = next;
 		curList = cur;
 		increList = incre;
-		debug=TestforData.debug;
-		objectList=TestforData.objectList;
-//		debug=ReadandCheck.debug;
-//		objectList=ReadandCheck.objectList;
+		debug=Debug.debug;
+		objectList=DataInitial.objectList;
 			
 	}
 

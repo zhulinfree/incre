@@ -3,7 +3,7 @@ package Test;
 
 import java.util.ArrayList;
 import BplusTree.InstanceKey;
-import Data.CSVtoDataObject;
+import Data.DataInitial;
 import Data.DataStruct;
 import EquivalenceClass.Index;
 import OD.ODs;
@@ -12,19 +12,23 @@ import OD.OrderDependency;
 public class TestforData {
 	public static boolean debug=true;
 	public final static int order = 5;
-	public final static int tid =15;//513:0;1610:99
-	private final static String dataFileName=new String("data2k.csv");
-	private final static String increFileName=new String("incrementalData.csv");
-	private final static String odFileName=new String("od2.txt");
+	public final static int tid =25;//513:0;1610:99
 	public static Index indexes=new Index();
-	public static CSVtoDataObject cdo = new CSVtoDataObject();
-	private static CSVtoDataObject ind=new CSVtoDataObject();
 	private static ODs od=new ODs();
 	public static ArrayList<DataStruct> objectList=new ArrayList<DataStruct>(),iObjectList=new ArrayList<DataStruct>();;
 	
 	
 	public static void main(String[] args) {
-		dataInitial();
+		
+		debug=Debug.debug;
+		
+		
+		DataInitial.readData();
+		
+		objectList=DataInitial.objectList;
+		iObjectList=DataInitial.iObjectList;
+		od=DataInitial.od;
+		indexes.buildIndexes(od.ods);
 		System.out.println("共有 "+objectList.size()+"条数据\n共有"+iObjectList.size()+"条增量");
 		
 		DataStruct.printAttrName();
@@ -42,7 +46,7 @@ public class TestforData {
 		ArrayList<String> listforKey=new ArrayList<>();
 	
 		listforKey.add("A");
-		listforKey.add("E");
+		
 		InstanceKey key=new InstanceKey(listforKey,objectList.get(tid));
 		
 		
@@ -72,17 +76,4 @@ public class TestforData {
 		System.out.println("test over");
 	}
 	
-	public static void dataInitial() {
-		try{
-			od.storeOD(odFileName);
-			cdo.readCSVData(dataFileName);
-			ind.readCSVData(increFileName);
-		}catch(Exception e) {
-			System.out.println("read fail!");
-		}
-		objectList = cdo.datatoObject();
-		
-		iObjectList = ind.datatoObject();
-		indexes.buildIndexes(od.ods);
-	}
 }

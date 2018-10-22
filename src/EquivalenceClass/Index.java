@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import BplusTree.InstanceKey;
-import Data.Cmp;
-import Data.DataStruct;
+import Data.*;
 import OD.OrderDependency;
 import Test.*;
 
@@ -19,8 +18,10 @@ public class Index {
 	public int order;
 	public boolean debug;
 	public Index() {
-		debug=TestforData.debug;
-		order=TestforData.order;
+//		debug=TestforData.debug;
+//		order=TestforData.order;
+		debug=Debug.debug;
+		order=Debug.order;
 	}
 	
 	
@@ -30,7 +31,7 @@ public class Index {
 			for(String s:indexList) System.out.print(s+" ");
 			System.out.println();
 		}
-		ArrayList<DataStruct> objList=TestforData.objectList;
+		ArrayList<DataStruct> objList=DataInitial.objectList;
 		EquiClass<InstanceKey> index=new EquiClass<InstanceKey>(indexList,order);
 		for (int i=0;i< objList.size();i++) {
 			DataStruct temp= objList.get(i);
@@ -224,7 +225,7 @@ public class Index {
 		//拿到ABCD中的前一个值，如果前一个值不为空且在AB上和cur在AB上的值相等，那么就继续
 		ArrayList<Integer> pre=getPre(queryKey,indexId);
 	
-		ArrayList<DataStruct> objList=TestforData.objectList;
+		ArrayList<DataStruct> objList=DataInitial.objectList;
 		while(pre!=null&&compareTwoData(objList.get(pre.get(0)),data,cmp_attr)==0) {
 			curUnionSet.addAll(pre);
 			InstanceKey newQueryKey=new InstanceKey(indexAttrName,objList.get(pre.get(0)));
@@ -252,7 +253,7 @@ public class Index {
 		//拿到ABCD中的前一个值，如果前一个值不为空且在AB上和cur在AB上的值相等，那么就继续
 		ArrayList<Integer> pre=getPre(queryKey,indexId);
 	
-		ArrayList<DataStruct> objList=TestforData.objectList;
+		ArrayList<DataStruct> objList=DataInitial.objectList;
 		
 		while(pre!=null&&compareTwoData(objList.get(pre.get(0)),data,cmp_attr)==0) {
 			InstanceKey newQueryKey=new InstanceKey(indexAttrName,objList.get(pre.get(0)));
@@ -285,7 +286,7 @@ public class Index {
 		//拿到ABCD中的前一个值，如果前一个值不为空且在AB上和cur在AB上的值相等，那么就继续
 		ArrayList<Integer> next=getNext(queryKey,indexId);
 	
-		ArrayList<DataStruct> objList=TestforData.objectList;
+		ArrayList<DataStruct> objList=DataInitial.objectList;
 		
 		while(next!=null&&compareTwoData(objList.get(next.get(0)),data,cmp_attr)==0) {
 			InstanceKey newQueryKey=new InstanceKey(indexAttrName,objList.get(next.get(0)));
@@ -320,7 +321,7 @@ public class Index {
 	
 	
 	private EquiClass<InstanceKey> buildEC(InstanceKey key,ArrayList<Integer> ecList) {
-		ArrayList<DataStruct> objList=TestforData.objectList;
+		ArrayList<DataStruct> objList=DataInitial.objectList;
 		//建立新的等价类
 		EquiClass<InstanceKey> newEC=new EquiClass<>(key.getAttrName(),order);
 		for(int i:ecList) {	
