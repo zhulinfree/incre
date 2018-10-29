@@ -4,15 +4,14 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class ODs {
+public class TXTtoOD {
 	public static final String ENCODE = "UTF-8";
-	public ArrayList<OrderDependency> ods;
-	public ODs() {
-		ods = new ArrayList<OrderDependency>();
+	public TXTtoOD() {
+		
 	}
 	//OD形式：year,month name,age空格分隔左右，逗号分隔属性顺序
-	public void storeOD(String fileName) throws Exception {
-
+	public ArrayList<OrderDependency> storeOD(String fileName) throws Exception {
+		ArrayList<OrderDependency> ods = new ArrayList<OrderDependency>();
 		FileInputStream fis = new FileInputStream(fileName);
 		InputStreamReader isw = new InputStreamReader(fis, ENCODE);
 		BufferedReader   br = new BufferedReader(isw);
@@ -30,15 +29,16 @@ public class ODs {
 			in.addArray2RHS(right);
 			ods.add(in);
 			line=br.readLine();
-		}     
-	}
-	
-	
-	public void print() {
-		for(int i=0;i<ods.size();i++) {
-			ods.get(i).printOD();
 		}
-		System.out.println("\n");
+		return ods;
 	}
+	
+	
+//	public void print() {
+//		for(int i=0;i<ods.size();i++) {
+//			ods.get(i).printOD();
+//		}
+//		System.out.println("\n");
+//	}
 	
 }

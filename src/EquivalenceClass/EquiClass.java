@@ -13,6 +13,11 @@ public class EquiClass<K extends Comparable<K>>{
 	public BplusTree<K,ArrayList<Integer>> keyTree;
 	//private ArrayList<K> keySortedList=new ArrayList<>();
 	public HashMap<K,ArrayList<Integer>> ec=new HashMap<K,ArrayList<Integer>>();
+	
+	
+	
+	
+	
 	public EquiClass(ArrayList<String> indList,int treeOrder){
 		this.setAttrName(indList);
 		keyTree=new BplusTree<K,ArrayList<Integer>>(treeOrder);

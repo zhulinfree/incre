@@ -2,22 +2,23 @@ package Data;
 
 import java.util.ArrayList;
 
-import OD.ODs;
+import OD.*;
 
 public class DataInitial {
 	
-	private final static String dataFileName=new String("data2k.csv");
-	private final static String increFileName=new String("incrementalData.csv");
-	private final static String odFileName=new String("od2.txt");
+	private final static String dataFileName=new String("testD.csv");
+	private final static String increFileName=new String("testdD.csv");
+	private final static String odFileName=new String("od3.txt");
 	public static CSVtoDataObject cdo = new CSVtoDataObject();
 	private static CSVtoDataObject ind=new CSVtoDataObject();
-	public static ODs od=new ODs();
+	private static TXTtoOD ods=new TXTtoOD();
+	public static ArrayList<OrderDependency> odList=new ArrayList<>();
 	public static ArrayList<DataStruct> objectList=new ArrayList<DataStruct>(),
 			iObjectList=new ArrayList<DataStruct>();
 	
 	public static void readData() {
 		try{
-			od.storeOD(odFileName);
+			odList=ods.storeOD(odFileName);
 			cdo.readCSVData(dataFileName);
 			ind.readCSVData(increFileName);
 		}catch(Exception e) {

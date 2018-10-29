@@ -305,28 +305,15 @@ public class Index {
 		return newEC;
 	}
 	
-//	private InstanceKey setKey(InstanceKey key,ArrayList<String> indexAttrName) {
-//		ArrayList<Integer> tailData=new ArrayList<>();
-//		ArrayList<String> tailAttrName=new ArrayList<>();
-//		for(int i=indexAttrName.size();i<key.getAttrName().size();i++) {
-//			tailAttrName.add(key.getAttrName().get(i));
-//			tailData.add(key.getKeyData().get(i));
-//		}
-//		
-//		return new InstanceKey(tailAttrName,tailData);
-//	}
-//	
-//	
-	
-	
-	
-//	//增量数据插入，更新tree的信息
-//	public void updateIndexes(DataStruct data) {
-//		for(int i=0;i<TestforData.tn;i++) {
-//			EquiClass<InstanceKey> tmp_ind=TestforData.ECIndexList.get(i);
-//			tmp_ind.addTuple(new InstanceKey(tmp_ind.getAttrName(),data), objList.size()-1);
-//		}
-//	}
+	//增量数据插入，更新tree的信息
+	public void updateIndexes(DataStruct data) {
+		//对于索引中每一个等价类都做更新
+		for(int i=0;i<tn;i++) {
+			EquiClass<InstanceKey> tmp_ind=ECIndexList.get(i);
+			ArrayList<DataStruct> objList=DataInitial.objectList;
+			tmp_ind.addTuple(new InstanceKey(tmp_ind.getAttrName(),data), objList.size()-1);
+		}
+	}
 	
 	
 }

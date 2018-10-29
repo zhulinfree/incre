@@ -157,15 +157,21 @@ public class Extend {
 					}
 				}
 				if (flag) {
+					
 					if (debug) System.out.println("添加成功: "+adder);
+					
 					odIncre.getLHS().add(adder);
 					res.add(new OrderDependency(odIncre));
 					odIncre.copy(od);
+					
 				} else if (!splitList.isEmpty()&&splitList.size()<curList.size()) {
 					if (debug) System.out.println("递归查找...");
+					
 					odIncre.getLHS().add(adder);
 					ArrayList<OrderDependency> newOD = new ArrayList<OrderDependency>();
+					
 					newOD = increaseLHS(odIncre, splitList);
+					
 					for (OrderDependency tod : newOD)
 						res.add(new OrderDependency(tod));
 					odIncre.copy(od);
