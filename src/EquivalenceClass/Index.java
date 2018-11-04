@@ -40,7 +40,7 @@ public class Index {
 		recforIndex.put(tn++,indexList);
 		return index;
 	}
-	public void buildIndexes(ArrayList<OrderDependency> ods) {
+	public void buildIndexs(ArrayList<OrderDependency> ods) {
 		for(OrderDependency nod:ods) {
 			ECIndexList.add(buildIndex(nod.getLHS()));
 		}
@@ -48,7 +48,12 @@ public class Index {
 	}
 	
 	
-	
+	public void buildIndexes(ArrayList<ArrayList<String>> indli) {
+		for(ArrayList<String> as:indli) {
+			ECIndexList.add(buildIndex(as));
+		}
+		//return ECIndexList;
+	}
 	
 	
 	public ArrayList<Integer> getCur(InstanceKey key,int indexId){

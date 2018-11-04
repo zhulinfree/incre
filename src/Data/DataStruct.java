@@ -46,6 +46,9 @@ public class DataStruct{
 		return Integer.toString(colData.get(attrName_to_colNumber.get(name)));
 	}
 	
+	public int getByName_int(String name) {
+		return colData.get(attrName_to_colNumber.get(name));
+	}
 	public void printSingleData() {
 		for(int i=0;i<attrNumber;i++) {
 			System.out.printf("%-7s",colData.get(i)+" ");

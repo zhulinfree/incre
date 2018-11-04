@@ -1,5 +1,10 @@
 package OD;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import Test.*;
 
 public class OrderDependency {
 	private ArrayList<String> LHS,RHS;
@@ -97,5 +102,32 @@ public class OrderDependency {
 		}
 		System.out.print("\n");
 	}
+	
+	
+//	public void filePrintOD() {
+//		
+//		
+//		try {   
+//			BufferedWriter bw= ReadandCheck.bw;
+//			bw.write(LHS.get(0));
+//			for(int i=1;i<LHS.size();i++) {
+//				bw.write(attr_separator+LHS.get(i));
+//			}
+//			
+//			bw.write(lr_separator+RHS.get(0));
+//			for(int i=1;i<RHS.size();i++) {
+//				bw.write(attr_separator+RHS.get(i));
+//			}
+//			//bw.write("\n");
+//			bw.newLine();
+//			
+//			
+//		    
+//		    
+//		} catch (IOException e) { 
+//			e.printStackTrace();   
+//		}  
+//		
+//	}
 	
 }
